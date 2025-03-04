@@ -1,0 +1,290 @@
+---
+// MenuComponent.astro
+interface MenuItem {
+  category: string;
+  item: string;
+  description: string;
+  price: string;
+}
+
+// This would be replaced with actual CSV parsing in a real implementation
+// For example, using the csv-parse package or Astro's built-in data fetching
+// Here we're simulating parsed CSV data
+const menuData = [
+//   ##########
+  { category: "Raciones", item: "Mix de Croquetas", description: "", price: "7,00€" },
+  { category: "Raciones", item: "Delicias de queso", description: "", price: "7,00€" },
+  { category: "Raciones", item: "Tabla de paleta ibérica", description: "", price: "14,00€" },
+  { category: "Raciones", item: "Rabas de calamar con mahonesa de maíz", description: "", price: "8,30€" },
+  { category: "Raciones", item: "Patatas bravas con salsa chipotle", description: "", price: "6,20€" },
+  { category: "Raciones", item: "Patatas revolconas", description: "", price: "7,50€" },
+  { category: "Raciones", item: "Torreznos de Soria", description: "", price: "2,50€" },
+  { category: "Raciones", item: "Berenjenas en tempura con miel", description: "", price: "7,20€" },
+  { category: "Raciones", item: "Patatas fritas a nuestro corte", description: "", price: "4,60€" },
+  { category: "Raciones", item: "Anchoas, boquerones con aceitunas y cebolla", description: "", price: "5,50€" },
+  { category: "Raciones", item: "Tabla de ibéricos", description: "Chorizo, salchichón y queso", price: "15,00€" },
+  
+  { category: "Ensaladas", item: "Ensalada César", description: "Crujiente de jamón, cebolla frita, salsa César, pechuga y pan tostado", price: "6,70€" },
+  { category: "Ensaladas", item: "Rulo de cabra", description: "Rulo de cabra, jamón, pimientos asados, pasas y gula", price: "8,70€" },
+  { category: "Ensaladas", item: "Ensalada templada de rape", description: "Ensalada templada de rape, ensalada y endivias", price: "14,00€" },
+  { category: "Ensaladas", item: "Tomate feo", description: "Tomate feo de Tudela con ventresca de atún y muselina de aceituna negra", price: "8,00€" },
+  { category: "Ensaladas", item: "Cogollos", description: "Cogollos de Tudela con boquerones, anchoas y vinagreta de cherry's", price: "7,00€" },
+  
+  { category: "Pollo", item: "Pollo asado entero", description: "Pollo asado entero en su jugo con patatas chips", price: "14,00€" },
+  { category: "Pollo", item: "Nuggets de pollo", description: "(7 unidades)", price: "7,00€" },
+  { category: "Pollo", item: "Tiras de pollo (Fingers)", description: "Con nuestras salsas supersecretas", price: "9,50€" },
+  { category: "Pollo", item: "Alitas de pollo", description: "Con patatas y nuestras super salsas", price: "10,00€" },
+
+//   ##########
+  
+  { category: "Bocatas", item: "Bocata #1", description: "Jamón a la plancha, cebolla caramelizada y pechuga", price: "7.00€" },
+  { category: "Bocatas", item: "Bocata #2", description: "Paleta de ibérico con queso Brie", price: "8.30€" },
+  { category: "Bocatas", item: "Bocata #3", description: "Tiras de ternera, láminas de champiñón, queso Brie y cebolla caramelizada", price: "7.00€" },
+  { category: "Bocatas", item: "Bocata #4", description: "Carne de Kebak, tortilla francesa de queso y bacon con salsa de yogurt", price: "7.00€" },
+  { category: "Bocatas", item: "Bocata #5", description: "Magret de pato, mermelada de frambuesa y cebolletas en tajadas", price: "7.70€" },
+  { category: "Bocatas", item: "Bocata #6", description: "Escalibada de verduras, queso de cabra y espárragos trigueros", price: "6.90€" },
+  { category: "Bocatas", item: "Bocata #7", description: "Bacon, pechuga, huevos fritos, queso amarillo y mahonesa", price: "7.00€" },
+  { category: "Bocatas", item: "Bocata #8", description: "Panceta, pimiento verde y pechuga rebozada con cebolla frita y alioli", price: "7.20€" },
+  { category: "Bocatas", item: "Bocata #9", description: "Rabas de calamar, mahonesa de maíz y pimientos del padrón", price: "7.90€" },
+  { category: "Bocatas", item: "Bocata #10", description: "Jamón, tortilla francesa y queso Brie", price: "8.00€" },
+  { category: "Bocatas", item: "Bocata #11", description: "Anchoas, boquerones, cebolla, guindillas y huevo duro", price: "7.00€" },
+  { category: "Bocatas", item: "Bocata #12", description: "Crujiente de pollo con cebolla caramelizada y queso de cabra", price: "7.80€" },
+  { category: "Bocatas", item: "Bocata #13", description: "Bocata de pez espada con salsa de tomate, alcaparras, aceituna negra y rúcula", price: "8.00€" },
+  { category: "Bocatas", item: "Bocata #14", description: "Bocata cubano, carne mechada de cerdo con york, queso gouda, pepinillos en vinagre y mostaza", price: "8.50€" },
+
+  // { category: "Hamburguesas artesanales", item: "Hamburguesa #1", description: "Ternera, queso idiazabal, pimientos del piquillo asados, canónigos y cebolla de fuente", price: "9.00€" },
+  // { category: "Hamburguesas artesanales", item: "Hamburguesa #2", description: "Doble de cerdo, queso americano, bacon, huevo frito, mostaza y cebolla crujiente", price: "8.00€" },
+  // { category: "Hamburguesas artesanales", item: "Hamburguesa #3", description: "Ternera, medallones de foie y cebolla caramelizada", price: "9.30€" },
+  // { category: "Hamburguesas artesanales", item: "Hamburguesa #4", description: "Roost Beef de ternera, lechuga romana, queso provolone, guacamole y cebolla morada", price: "9.50€" },
+  // { category: "Hamburguesas artesanales", item: "Hamburguesa #5", description: "Pan Brioche, fingers de pollo, guacamole, compota de piña, dados de queso azul y tiras de bacon a la miel", price: "9.00€" },
+  // { category: "Hamburguesas artesanales", item: "Hamburguesa #6", description: "Doble de ternera, queso americano, bacon, huevo frito, mostaza y cebolla crujiente", price: "11.00€" },
+  // { category: "Hamburguesas artesanales", item: "Hamburguesa #7", description: "Cheese-bacon burger de ternera y aros de cebolla (250 grs.)", price: "9.50€" },
+  // { category: "Hamburguesas artesanales", item: "Hamburguesa #9", description: "Vegetariana, falafel, ajos frescos en tempura, pimientos asados y queso gorgonzola", price: "11.00€" },
+  // { category: "Hamburguesas artesanales", item: "Hamburguesa #10", description: "Hamburguesa de pescado, chalotas estofadas, lechuga blanca y ketchup de ostras", price: "11.50€" },
+  // { category: "Hamburguesas artesanales", item: "Hamburguesa #11", description: "Carne de ternera, queso americano, bacon, huevo frito, tomate y lechuga blanca", price: "8.00€" },
+
+
+//   ########## 
+
+  // { category: "Sandwiches", item: "Roost Beef", description: "Ternera roast beef, lechuga romana, provolone y guacamole", price: "7.50€" },
+  // { category: "Sandwiches", item: "Pollo crujiente", description: "Pollo crujiente, queso american, lechuga blanca y salsa chipotle", price: "7.80€" },
+  // { category: "Sandwiches", item: "Mixto", description: "Pechuga de pavo, mahonesa, tomate, lechuga blanca, huevo frito y queso gouda", price: "7.00€" },
+  // { category: "Sandwiches", item: "Cubano", description: "Carne mechada de cerdo con york, queso gouda, pepinillos en vinagre y mostaza", price: "9.00€" },
+  
+  // { category: "Huevos rotos", item: "Huevos rotos con jamón", description: "", price: "12.00€" },
+  // { category: "Huevos rotos", item: "Huevos rotos con gulas", description: "", price: "12.40€" },
+  // { category: "Huevos rotos", item: "Huevos rotos con foie", description: "", price: "13.80€" },
+  
+  { category: "Carnes", item: "Escalope de ternera", description: "Relleno de queso azul y jamón", price: "14.00€" },
+  { category: "Carnes", item: "Chuleta de vaca a la plancha", description: "Más de 300 grs.", price: "15.80€" },
+  { category: "Carnes", item: "Rabo de toro a la Cordobesa", description: "", price: "13.90€" },
+  { category: "Carnes", item: "Costillar de cerdo a la barbacoa XXL", description: "", price: "17.00€" },
+  { category: "Carnes", item: "Carpaccio de vaca", description: "Con lascas de Idiazabal, alcaparras y rúcula", price: "12.00€" },
+  { category: "Carnes", item: "Chuletillas de cordero a la parrilla", description: "7 uds.", price: "13.50€" },
+  { category: "Carnes", item: "Lomo bajo de vaca al punto", description: "Más de 300 grs.", price: "14.80€" },
+
+  // { category: "Pescados", item: "Fish and chips de merluza", description: "", price: "7.80€" },
+  // { category: "Pescados", item: "Tortilla de bacalao", description: "Con cebolla estofada", price: "11.00€" },
+  // { category: "Pescados", item: "Sepia a la plancha", description: "Con mojo verde", price: "14.00€" },
+  // { category: "Pescados", item: "Pulpo a la gallega", description: "", price: "15.00€" },
+  // { category: "Pescados", item: "Chipirones a la plancha", description: "Con mojo verde y patatas panadera (10 uds.)", price: "14.00€" },
+
+  { category: "Tostadas de pan", item: "Tostada #1", description: "Escalibada de verduras, anchoas, boquerones y cebolla de fuente", price: "7.00€" },
+  { category: "Tostadas de pan", item: "Tostada #2", description: "Cecina y lascas de Idiazabal con tomate en base", price: "7.70€" },
+  { category: "Tostadas de pan", item: "Tostada #3", description: "Ahumados de bacalao y salmón con emulsión de aguacate", price: "8.00€" },
+  { category: "Tostadas de pan", item: "Tostada #4", description: "Paleta de jamón ibérico con tomate cherry's al romero", price: "8.00€" },
+  { category: "Tostadas de pan", item: "Tostada #5", description: "Carne Bolognesa con queso provolone", price: "6.50€" },
+  { category: "Tostadas de pan", item: "Tostada #6", description: "Tostada de aguacate, tomate en dados con salsa de yogurt", price: "8.00€" },
+
+//   ##########
+
+  { category: "Postres", item: "Brownie", description: "Brownie de chocolate negro con helado de vainilla", price: "5.50€" },
+  { category: "Postres", item: "Coulant de chocolate negro", description: "Coulant de chocolate negro con helado de vainilla", price: "5.00€" },
+  { category: "Postres", item: "Tarta de queso", description: "Tarta de queso al horno con frutos rojos", price: "4.80€" },
+  { category: "Postres", item: "Torrija", description: "Torrija en pan brioche caramelizada con lengua de manzana", price: "4.90€" },
+  { category: "Postres", item: "Arroz con leche", description: "Arroz con leche y virutas de oreo", price: "4.00€" }
+
+];
+
+
+ 
+
+// Group the menu items by category
+const menuByCategory = menuData.reduce((acc, item) => {
+  if (!acc[item.category]) {
+    acc[item.category] = [];
+  }
+  acc[item.category].push(item);
+  return acc;
+}, {} as Record<string, MenuItem[]>);
+
+// Get all unique categories
+const categories = Object.keys(menuByCategory);
+---
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuTitles = document.querySelectorAll('.menu-category-title');
+    
+    menuTitles.forEach(title => {
+      title.addEventListener('click', () => {
+        const content = title.nextElementSibling;
+        const isOpen = content.classList.contains('open');
+        
+        // Close all other open sections
+        document.querySelectorAll('.menu-category-content.open').forEach(openContent => {
+          if (openContent !== content) {
+            openContent.classList.remove('open');
+            openContent.style.maxHeight = '0px';
+            openContent.previousElementSibling.classList.remove('active');
+          }
+        });
+        
+        // Toggle current section
+        if (isOpen) {
+          content.classList.remove('open');
+          content.style.maxHeight = '0px';
+          title.classList.remove('active');
+        } else {
+          content.classList.add('open');
+          content.style.maxHeight = content.scrollHeight + 'px';
+          title.classList.add('active');
+        }
+      });
+    });
+  });
+</script>
+
+<div class="restaurant-menu">
+  <h1 class="menu-title">Nuestra Carta</h1>
+  
+  {categories.map((category) => (
+    <div class="menu-category">
+      <div class="menu-category-title">
+        <h2>{category}</h2>
+        <span class="icon">+</span>
+      </div>
+      <div class="menu-category-content">
+        {menuByCategory[category].map((item) => (
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>{item.item}</h3>
+              <span class="price">{item.price}</span>
+            </div>
+            <p class="description">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .restaurant-menu {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Playfair Display', serif;
+    color: #333;
+    padding: 2rem;
+  }
+  
+  .menu-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  
+  .menu-category {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .menu-category-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .menu-category-title h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    transition: color 0.3s ease;
+  }
+  
+  .menu-category-title.active h2 {
+    color: #b8860b;
+  }
+  
+  .icon {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .menu-category-title.active .icon {
+    transform: rotate(45deg);
+  }
+  
+  .menu-category-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  
+  .menu-item {
+    padding: 1rem 0;
+    border-top: 1px dotted #eaeaea;
+  }
+  
+  .menu-item:first-child {
+    border-top: none;
+  }
+  
+  .menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+  }
+  
+  .menu-item-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .price {
+    font-weight: 700;
+    color: #b8860b;
+  }
+  
+  .description {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #666;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .restaurant-menu {
+      padding: 1rem;
+    }
+    
+    .menu-title {
+      font-size: 2rem;
+    }
+    
+    .menu-item-header {
+      flex-direction: column;
+    }
+    
+    .price {
+      margin-top: 0.25rem;
+    }
+  }
+</style>

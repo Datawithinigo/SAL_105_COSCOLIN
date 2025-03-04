@@ -5,8 +5,13 @@
   <div class="container">
     <div class="logo">
       <a href="/">
-        <h1>Horno Coscolin</h1>
-        <p>Asador Tradicional</p>
+        <div class="logo-container">
+          <img src="/Logo.png" alt="Alfabox" class="logo-image"/>
+          <div class="logo-text">
+            <h1>Horno Coscolin</h1>
+            <p>Asador Tradicional</p>
+          </div>
+        </div>
       </a>
     </div>
     
@@ -14,7 +19,7 @@
       <ul>
         <li><a href="/">Inicio</a></li>
         <li><a href="/#destacados">Especialidades</a></li>
-        <li><a href="/#menu">Menú</a></li>
+        <li><a href="/menu">Menú</a></li>
         <li><a href="/#reservas">Reservas</a></li>
         <li><a href="/#contacto">Contacto</a></li>
         <li><a href="/carrito" class="cart-link">
@@ -60,7 +65,12 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .logo h1 {
     font-size: 1.8rem;
     color: var(--primary);
