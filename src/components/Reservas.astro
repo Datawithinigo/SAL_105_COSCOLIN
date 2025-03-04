@@ -1,0 +1,206 @@
+---
+---
+
+<section id="reservas" class="reservas">
+  <div class="container">
+    <div class="reservas-content">
+      <div class="reservas-info">
+        <h2>Reserva tu mesa</h2>
+        <p>Disfruta de una experiencia gastronómica única en Horno Coscolin. Reserva tu mesa y déjate sorprender por nuestros platos tradicionales cocinados en horno de leña.</p>
+        
+        <div class="horario">
+          <h3>Horario</h3>
+          <ul>
+            <li><strong>Lunes a Jueves:</strong> 13:00 - 16:00 | 20:00 - 23:00</li>
+            <li><strong>Viernes y Sábado:</strong> 13:00 - 16:30 | 20:00 - 00:00</li>
+            <li><strong>Domingo:</strong> 13:00 - 16:30 | Cerrado</li>
+          </ul>
+        </div>
+        
+        <div class="contacto-info">
+          <p><strong>Teléfono:</strong> 945 123 456</p>
+          <p><strong>Email:</strong> reservas@hornocoscolin.com</p>
+        </div>
+      </div>
+      
+      <div class="reservas-form">
+        <form id="form-reserva">
+          <div class="form-group">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" required>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fecha">Fecha</label>
+              <input type="date" id="fecha" name="fecha" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="hora">Hora</label>
+              <select id="hora" name="hora" required>
+                <option value="">Seleccionar</option>
+                <option value="13:00">13:00</option>
+                <option value="13:30">13:30</option>
+                <option value="14:00">14:00</option>
+                <option value="14:30">14:30</option>
+                <option value="15:00">15:00</option>
+                <option value="15:30">15:30</option>
+                <option value="20:00">20:00</option>
+                <option value="20:30">20:30</option>
+                <option value="21:00">21:00</option>
+                <option value="21:30">21:30</option>
+                <option value="22:00">22:00</option>
+                <option value="22:30">22:30</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="personas">Número de personas</label>
+            <select id="personas" name="personas" required>
+              <option value="">Seleccionar</option>
+              <option value="1">1 persona</option>
+              <option value="2">2 personas</option>
+              <option value="3">3 personas</option>
+              <option value="4">4 personas</option>
+              <option value="5">5 personas</option>
+              <option value="6">6 personas</option>
+              <option value="7">7 personas</option>
+              <option value="8">8 personas</option>
+              <option value="mas">Más de 8 personas</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="comentarios">Comentarios adicionales</label>
+            <textarea id="comentarios" name="comentarios" rows="3"></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-full">Reservar ahora</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reservas {
+    background-color: var(--background);
+    padding: 5rem 0;
+  }
+  
+  .reservas-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  
+  .reservas-info h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+  
+  .reservas-info p {
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  
+  .horario {
+    margin-bottom: 2rem;
+  }
+  
+  .horario h3 {
+    font-size: 1.5rem;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+  }
+  
+  .horario ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .horario li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .contacto-info p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .reservas-form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  .btn-full {
+    width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .reservas-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Form validation
+  const form = document.getElementById('form-reserva');
+  
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Here you would normally send the form data to a server
+    // For this example, we'll just show an alert
+    alert('¡Reserva realizada con éxito! Te contactaremos pronto para confirmar.');
+    form.reset();
+  });
+</script>

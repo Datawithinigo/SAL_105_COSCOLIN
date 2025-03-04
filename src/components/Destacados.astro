@@ -1,0 +1,355 @@
+---
+const productos = [
+  {
+    id: 1,
+    nombre: "Cordero asado",
+    descripcion: "Cordero asado lentamente en nuestro horno de leña tradicional, con patatas y verduras de temporada.",
+    precio: 24.50,
+    imagen: "https://images.unsplash.com/photo-1608039755401-742074f0548d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80"
+  },
+  {
+    id: 2,
+    nombre: "Cochinillo crujiente",
+    descripcion: "Cochinillo asado a fuego lento hasta conseguir una piel crujiente y una carne tierna y jugosa.",
+    precio: 26.00,
+    imagen: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80"
+  },
+  {
+    id: 3,
+    nombre: "Chuletón a la brasa",
+    descripcion: "Chuletón de vaca madurada 30 días, asado a la brasa con sal gruesa y acompañado de pimientos.",
+    precio: 28.50,
+    imagen: "https://images.unsplash.com/photo-1558030006-450675393462?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80"
+  },
+  {
+    id: 4,
+    nombre: "Parrillada de verduras",
+    descripcion: "Selección de verduras de temporada asadas a la brasa con aceite de oliva virgen extra y sal en escamas.",
+    precio: 16.00,
+    imagen: "https://images.unsplash.com/photo-1615937657715-bc7b4b7962c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+  },
+  {
+    id: 5,
+    nombre: "Arroz con bogavante",
+    descripcion: "Arroz caldoso con bogavante fresco, preparado en nuestro horno de leña para un sabor único.",
+    precio: 22.00,
+    imagen: "https://images.unsplash.com/photo-1626625213750-699b0b8ae29e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+  },
+  {
+    id: 6,
+    nombre: "Costillas glaseadas",
+    descripcion: "Costillas de cerdo cocinadas a baja temperatura y terminadas en nuestro horno con glaseado de miel y especias.",
+    precio: 19.50,
+    imagen: "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80"
+  }
+];
+---
+
+<section id="destacados" class="destacados">
+  <div class="container">
+    <div class="section-header">
+      <h2>Nuestras especialidades</h2>
+      <p>Descubre los platos que nos han hecho famosos</p>
+    </div>
+    
+    <div class="productos-grid">
+      {productos.map(producto => (
+        <div class="producto-card">
+          <div class="producto-img">
+            <img src={producto.imagen} alt={producto.nombre} />
+          </div>
+          <div class="producto-info">
+            <h3>{producto.nombre}</h3>
+            <p>{producto.descripcion}</p>
+            <div class="producto-footer">
+              <span class="precio">{producto.precio.toFixed(2)}€</span>
+              <button class="btn-small add-to-cart" data-id={producto.id} data-nombre={producto.nombre} data-precio={producto.precio}>Añadir al carrito</button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="ver-menu">
+      <a href="#menu" class="btn">Ver menú completo</a>
+      <a href="/carrito" class="btn btn-cart">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count">0</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .destacados {
+    background-color: white;
+    padding: 5rem 0;
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+  
+  .section-header p {
+    font-size: 1.1rem;
+    color: var(--secondary);
+  }
+  
+  .productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .producto-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .producto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .producto-img {
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .producto-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .producto-card:hover .producto-img img {
+    transform: scale(1.05);
+  }
+  
+  .producto-info {
+    padding: 1.5rem;
+  }
+  
+  .producto-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+  }
+  
+  .producto-info p {
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  .producto-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .precio {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--secondary);
+  }
+  
+  .btn-small {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-small:hover {
+    background-color: var(--secondary);
+  }
+  
+  .ver-menu {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .btn-cart {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+  }
+  
+  .cart-count {
+    background-color: var(--accent);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  
+  @media (max-width: 768px) {
+    .productos-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .section-header h2 {
+      font-size: 2rem;
+    }
+    
+    .ver-menu {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
+
+<script>
+  // Shopping cart functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialize cart from localStorage or create empty cart
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    updateCartCount();
+    
+    // Add event listeners to all "Add to cart" buttons
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    addToCartButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const id = parseInt(button.getAttribute('data-id'));
+        const nombre = button.getAttribute('data-nombre');
+        const precio = parseFloat(button.getAttribute('data-precio'));
+        
+        // Check if item is already in cart
+        const existingItem = cart.find(item => item.id === id);
+        
+        if (existingItem) {
+          existingItem.cantidad += 1;
+        } else {
+          cart.push({
+            id,
+            nombre,
+            precio,
+            cantidad: 1
+          });
+        }
+        
+        // Save cart to localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Update cart count
+        updateCartCount();
+        
+        // Show confirmation message
+        showAddedToCartMessage(nombre);
+      });
+    });
+    
+    function updateCartCount() {
+      const cartCountElements = document.querySelectorAll('.cart-count');
+      if (cartCountElements.length > 0) {
+        const totalItems = cart.reduce((total, item) => total + item.cantidad, 0);
+        cartCountElements.forEach(element => {
+          element.textContent = totalItems.toString();
+        });
+      }
+    }
+    
+    function showAddedToCartMessage(productName) {
+      // Create message element
+      const message = document.createElement('div');
+      message.className = 'cart-message';
+      message.innerHTML = `
+        <div class="cart-message-content">
+          <span class="cart-message-icon">✓</span>
+          <div class="cart-message-text">
+            <p class="cart-message-title">¡Añadido al carrito!</p>
+            <p>${productName}</p>
+          </div>
+          <a href="/carrito" class="cart-message-link">Ver carrito</a>
+        </div>
+      `;
+      
+      // Style the message
+      message.style.position = 'fixed';
+      message.style.bottom = '20px';
+      message.style.right = '20px';
+      message.style.backgroundColor = 'white';
+      message.style.color = 'var(--text)';
+      message.style.padding = '15px';
+      message.style.borderRadius = '8px';
+      message.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
+      message.style.zIndex = '1000';
+      message.style.transition = 'all 0.3s ease';
+      message.style.maxWidth = '300px';
+      
+      const messageContent = message.querySelector('.cart-message-content');
+      if (messageContent) {
+        messageContent.style.display = 'flex';
+        messageContent.style.alignItems = 'center';
+        messageContent.style.gap = '10px';
+      }
+      
+      const messageIcon = message.querySelector('.cart-message-icon');
+      if (messageIcon) {
+        messageIcon.style.backgroundColor = 'var(--primary)';
+        messageIcon.style.color = 'white';
+        messageIcon.style.width = '24px';
+        messageIcon.style.height = '24px';
+        messageIcon.style.borderRadius = '50%';
+        messageIcon.style.display = 'flex';
+        messageIcon.style.alignItems = 'center';
+        messageIcon.style.justifyContent = 'center';
+        messageIcon.style.flexShrink = '0';
+      }
+      
+      const messageTitle = message.querySelector('.cart-message-title');
+      if (messageTitle) {
+        messageTitle.style.fontWeight = 'bold';
+        messageTitle.style.margin = '0';
+      }
+      
+      const messageText = message.querySelector('.cart-message-text');
+      if (messageText) {
+        messageText.style.flex = '1';
+      }
+      
+      const messageLink = message.querySelector('.cart-message-link');
+      if (messageLink) {
+        messageLink.style.color = 'var(--primary)';
+        messageLink.style.fontWeight = 'bold';
+        messageLink.style.textDecoration = 'none';
+        messageLink.style.marginLeft = 'auto';
+      }
+      
+      // Add to body
+      document.body.appendChild(message);
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+        message.style.opacity = '0';
+        message.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          document.body.removeChild(message);
+        }, 300);
+      }, 3000);
+    }
+  });
+</script>

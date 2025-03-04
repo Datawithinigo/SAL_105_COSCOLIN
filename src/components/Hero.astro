@@ -1,0 +1,76 @@
+---
+---
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Tradición y sabor en cada plato</h1>
+    <p>Descubre la auténtica cocina a la brasa en nuestro asador tradicional</p>
+    <div class="hero-buttons">
+      <a href="#reservas" class="btn">Reservar mesa</a>
+      <a href="#menu" class="btn btn-outline">Ver menú</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    height: 80vh;
+    min-height: 500px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    margin-top: -1px;
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    padding: 0 1rem;
+  }
+  
+  .hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .btn-outline {
+    background-color: transparent;
+    border: 2px solid white;
+  }
+  
+  .btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+    
+    .hero p {
+      font-size: 1rem;
+    }
+    
+    .hero-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
